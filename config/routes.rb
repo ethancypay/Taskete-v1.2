@@ -45,6 +45,6 @@ Rails.application.routes.draw do
     end
   end
 
-
+  post '/telegram_bot', to: 'telegrams#bot', as: :telebot
 
 end
