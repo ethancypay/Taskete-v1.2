@@ -45,6 +45,6 @@ Rails.application.routes.draw do
     end
   end
 
-  post '/telegram_bot', to: 'telegrams#bot', as: :telebot
+  post "/telegram_bot#{ENV['TELEBOT_KEY']}", to: 'telegrams#bot', as: :telebot
 
 end
