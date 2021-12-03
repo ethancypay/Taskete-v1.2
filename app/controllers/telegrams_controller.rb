@@ -5,15 +5,19 @@ class TelegramsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:bot]
 
   def bot
-    # reply with POST request, header (200 OK)
+    chat_id = params['message']['chat']['id']
+    chat_command = params['message']['text']
 
-    uri = URI("https://api.telegram.org/#{ENV['TELEBOT_KEY']}/sendMessage")
-    req = Net::HTTP::Post.new(uri)
-    puts res.body
+    request_body = "?chat_id=#{chat_id}&text=You said '#{chat_command}'"
 
-    respond_to do |format|
-      format.html { head :ok }
-      # format.json { render json: { data: "hello world"}, status: :ok }
+    uri = URI("https://api.telegram.org/bot#{ENV['TELEBOT_KEY']}/sendMessage#{request_body}")
+    res = Net::HTTP.get_response(uri)
+
+    # return header (200 OK) if reply success
+    if res.is_a?(Net::HTTPSuccess)
+      respond_to do |format|
+        format.html { head :ok }
+      end
     end
   end
 
