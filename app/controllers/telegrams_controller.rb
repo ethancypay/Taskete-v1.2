@@ -1,17 +1,17 @@
-require 'net/http'
-
 class TelegramsController < ApplicationController
-  #Telegram webhook API doesn't return token
+  # Telegram webhook API doesn't return token
   skip_before_action :verify_authenticity_token, only: [:bot]
 
   def bot
     req_success = false
+    # Extracting from params
     chat_id = params['message']['chat']['id']
     chat_command = params['message']['text']
 
     if chat_command == '/start'
       req_success = Telegram.start(chat_id)
     else
+      # public_send?
       puts 'lol'
     end
 
