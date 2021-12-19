@@ -1,6 +1,5 @@
-# README
-
-Taskete App (Ethan's Version)
+# Taskete App
+(Ethan's Version)
 
 Create a fake accounts to play around.
 Create Workflows > Tasks > Items.
