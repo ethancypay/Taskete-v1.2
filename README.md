@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Taskete App (Ethan's Version)
 
-Things you may want to cover:
+Create a fake accounts to play around.
+Create Workflows > Tasks > Items.
+Items can be saved or moved to other tasks by drag-dropping to-fro the item repository on the right-bar.
+Notify your other accounts of tasks by activating workflow.
 
-* Ruby version
+Deployment instructions:
+Add your Telegram API key as TELEBOT_KEY
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Under upgrading to react framework...
+Renovating Telegram notification system...
