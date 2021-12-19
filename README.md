@@ -1,6 +1,6 @@
 # Taskete App
 (Ethan's Version)
--------------------------------------------------------------
+
 Task automator/manager for professionals with exquisite taste
 -------------------------------------------------------------
 
