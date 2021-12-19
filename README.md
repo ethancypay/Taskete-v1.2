@@ -1,5 +1,8 @@
 # Taskete App
 (Ethan's Version)
+-------------------------------------------------------------
+Task automator/manager for professionals with exquisite taste
+-------------------------------------------------------------
 
 Create a fake accounts to play around.
 Create Workflows > Tasks > Items.
