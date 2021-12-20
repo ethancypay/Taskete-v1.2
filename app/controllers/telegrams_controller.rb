@@ -3,24 +3,22 @@ class TelegramsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:bot]
 
   def bot
-    req_success = false
     # Extracting from params
     chat_id = params['message']['chat']['id']
     chat_command = params['message']['text']
 
     if chat_command == '/start'
-      req_success = Telegram.start(chat_id)
-    else
-      # public_send?
-      puts 'lol'
+      return respond if Telegram.start(chat_id)
     end
 
-    return unless req_success == true
+    respond if Telegram.unrecognized(chat_id)
+  end
 
-    # return header (200 OK) if reply success
+  private
+
+  def respond
     respond_to do |format|
       format.html { head :ok }
     end
   end
-
 end

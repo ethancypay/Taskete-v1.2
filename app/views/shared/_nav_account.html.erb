@@ -3,7 +3,7 @@
   <button class="t-round-card p-2" data-action="click->account-dropdown#toggle">
     <div class="gap-2 flex items-center justify-between">
 
-      <div class="flex-shrink-0 flex items-center gap-2 text-gray-700">
+      <div class="flex items-center gap-2 text-gray-700">
         <div class="t-no-profile <%= current_user.color %> text-white">
           <%= current_user.first_name.first.capitalize %><%= current_user.last_name.first.capitalize %>
         </div>
@@ -23,17 +23,12 @@
 
 
   <div class="t-dropdown w-44 hidden" data-account-dropdown-target="menu">
-    <%= link_to "Your profile", edit_user_registration_path, class:"t-dropdown-btn" %>
-    <a href="#" class="t-dropdown-btn">
-      Your projects
+    <%= link_to "Your Profile", edit_user_registration_path, class:"t-dropdown-btn" %>
+    <a href="#" class="t-dropdown-btn flex justify-between">
+      <div>Link Telegram</div>
+      <img src="https://telegram.org/img/t_logo.svg?1" alt="" class="w-5">
     </a>
-    <a href="#" class="t-dropdown-btn">
-      Help
-    </a>
-    <a href="#" class="t-dropdown-btn">
-      Settings
-    </a>
-    <%= link_to "Sign out", destroy_user_session_path, method: :delete, class:"t-dropdown-btn" %>
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"t-dropdown-btn" %>
   </div>
 
 </div>
