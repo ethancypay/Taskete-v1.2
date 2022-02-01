@@ -24,7 +24,8 @@ class TelegramsController < ApplicationController
     )
 
     respond_to do |format|
-      format.text { render inline: 'hihi' }
+      format.text { render html: svg.html_safe }
+      # format.text { render partial: 'shared/telegramQR', formats: [:html] }
     end
   end
 

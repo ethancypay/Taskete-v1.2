@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["menu", "telegramQrcode"]
+  static targets = ["menu", "background", "telegramQrcode"]
 
   connect() {
   }
@@ -11,15 +11,22 @@ export default class extends Controller {
   }
 
   linkTelegram() {
-    fetch('/telegrams/link',{
+    fetch('/telegrams/link', {
       headers: { 'Accept': 'text/plain' }
-    }).then(res => console.log(res.text))
+    })
+    .then(res => res.text())
+    .then(this.generateQr.bind(this))
 
-    this.telegramQrcodeTarget.classList.toggle('hidden')
+    this.backgroundTarget.classList.toggle('hidden')
+  }
+
+  generateQr(svg) {
+    this.telegramQrcodeTarget.innerHTML = svg;
   }
 
   closeLinkTelegram() {
-    this.telegramQrcodeTarget.classList.toggle('hidden')
+    this.backgroundTarget.classList.toggle('hidden')
     this.menuTarget.classList.toggle('hidden')
+    this.telegramQrcodeTarget.innerHTML = '';
   }
 }
