@@ -6,12 +6,14 @@ class TelegramsController < ApplicationController
     # Extracting from params
     chat_id = params['message']['chat']['id']
     chat_command = params['message']['text']
+    telegram_reply = Telegram.create(chat_id, chat_command)
 
-    if chat_command == '/start'
-      return respond if Telegram.start(chat_id)
-    end
+    telegram_reply.bot_respond
 
-    respond if Telegram.unrecognized(chat_id)
+    respond if telegram_reply.request_result
+    # return respond if chat_command == '/start' && Telegram.start(chat_id)
+
+    # respond if Telegram.unrecognized(chat_id)
   end
 
   private
