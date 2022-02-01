@@ -1,4 +1,6 @@
 class Telegram
+  attr_reader :request_result
+
   def initialize(chat_id, chat_command)
     @chat_id = chat_id
     @chat_command = chat_command
