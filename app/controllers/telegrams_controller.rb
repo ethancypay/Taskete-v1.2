@@ -6,7 +6,7 @@ class TelegramsController < ApplicationController
     # Extracting from params
     chat_id = params['message']['chat']['id']
     chat_command = params['message']['text']
-    telegram_reply = Telegram.create(chat_id, chat_command)
+    telegram_reply = Telegram.new(chat_id, chat_command)
 
     telegram_reply.bot_respond
 
