@@ -45,6 +45,15 @@ Rails.application.routes.draw do
     end
   end
 
-  post "/telegram_bot#{ENV['TELEBOT_KEY']}", to: 'telegrams#bot', as: :telebot
+  # TELEGRAM ROUTES
+  # for webhook
+  post "/telegram_bot#{ENV['TELEBOT_KEY']}", to: 'telegrams#bot'
+  # functions
+  resources :telegrams, only: [] do
+    collection do
+      get :link
+      get :unlink
+    end
+  end
 
 end

@@ -22,13 +22,21 @@
   </button>
 
 
-  <div class="t-dropdown w-44 hidden" data-account-dropdown-target="menu">
+  <div class="t-dropdown w-44 hidden focus:ring" data-account-dropdown-target="menu">
     <%= link_to "Your Profile", edit_user_registration_path, class:"t-dropdown-btn" %>
-    <a href="#" class="t-dropdown-btn flex justify-between">
+
+    <div class="t-dropdown-btn flex justify-between cursor-pointer" data-action="click->account-dropdown#linkTelegram">
       <div>Link Telegram</div>
       <img src="https://telegram.org/img/t_logo.svg?1" alt="" class="w-5">
-    </a>
+    </div>
+
     <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"t-dropdown-btn" %>
+  </div>
+
+  <div class="hidden fixed top-0 left-0 w-full h-full z-20 bg-gray-600 opacity-25 flex justify-center items-center" data-account-dropdown-target="telegramQrcode" data-action="click->account-dropdown#closeLinkTelegram">
+    <div class="bg-white p-5 rounded-lg shadow-xl">
+      HELLO WORLD
+    </div>
   </div>
 
 </div>
