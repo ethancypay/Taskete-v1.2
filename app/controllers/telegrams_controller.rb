@@ -29,9 +29,9 @@ class TelegramsController < ApplicationController
     end
   end
 
-  def unlink
+  # def unlink
 
-  end
+  # end
 
   private
 

@@ -15,7 +15,7 @@ class Telegram
   def bot_respond
     case @chat_command[0].downcase
     when '/start'
-      @chat_command.length == 2 ? verify_token : start
+      @chat_command.length != 2 ? start : verify_token
     else
       unrecognized
     end
@@ -46,9 +46,11 @@ class Telegram
 
   def verify_token
     # getting current_user because not defined without csrf token
-    this_user = User.where("auth_token = '#{@chat_command[1]}'")
+    this_user = User.where("auth_token = '#{@chat_command[1]}'")[0]
+
     if this_user
       this_user.telegram_chat_id = @chat_id
+      this_user.save
       make_http_request('sendMessage',
                         'Your Telegram and Taskete accounts have been connected. '\
                         'You will now receive Telegram notifications when you have a task.')
