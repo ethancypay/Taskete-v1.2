@@ -14,6 +14,7 @@ class TelegramsController < ApplicationController
   end
 
   def link
+    current_user.regenerate_auth_token if current_user.auth_token.nil?
     qrcode = RQRCode::QRCode.new("https://t.me/Taskete_bot?start=#{current_user.auth_token}")
     svg = qrcode.as_svg(
       color: "000",
