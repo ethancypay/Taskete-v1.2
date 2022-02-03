@@ -15,7 +15,7 @@ class Telegram
   def bot_respond
     case @chat_command[0].downcase
     when '/start'
-      start
+      @chat_command.length == 2 ? verify_token : start
     else
       unrecognized
     end
@@ -23,13 +23,13 @@ class Telegram
 
   private
 
-  # Telegram API request maker
+  # Telegram API request maker (changes @request_result)
   def make_http_request(method, bot_reply)
     request_body = "chat_id=#{@chat_id}&text=#{bot_reply}"
     uri = URI("https://api.telegram.org/bot#{ENV['TELEBOT_KEY']}/#{method}?#{request_body}")
     response = Net::HTTP.get_response(uri)
 
-    response.is_a?(Net::HTTPSuccess) ? true : false
+    @request_result = response.is_a?(Net::HTTPSuccess) ? true : false
   end
 
   # split command for inputs with 2 parameters
@@ -42,6 +42,20 @@ class Telegram
     make_http_request('sendMessage',
                       'Welcome to Taskete on Telegram. '\
                       'Link your Telegram account by scanning the QR code on the Taskete web app.')
+  end
+
+  def verify_token
+    # getting current_user because not defined without csrf token
+    this_user = User.where("auth_token = '#{@chat_command[1]}'")
+    if this_user
+      this_user.telegram_chat_id = @chat_id
+      make_http_request('sendMessage',
+                        'Your Telegram and Taskete accounts have been connected. '\
+                        'You will now receive Telegram notifications when you have a task.')
+    else
+      make_http_request('sendMessage',
+                        'Verification failed.')
+    end
   end
 
   def unrecognized

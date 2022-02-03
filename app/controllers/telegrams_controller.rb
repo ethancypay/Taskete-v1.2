@@ -6,19 +6,19 @@ class TelegramsController < ApplicationController
     # Extracting from params
     chat_id = params['message']['chat']['id']
     chat_command = params['message']['text']
-
     telegram_reply = Telegram.new(chat_id, chat_command)
+
     telegram_reply.bot_respond
 
     respond_to_telegram if telegram_reply.request_result
   end
 
   def link
-    qrcode = RQRCode::QRCode.new("http://github.com/")
+    qrcode = RQRCode::QRCode.new("https://t.me/Taskete_bot?start=#{current_user.auth_token}")
     svg = qrcode.as_svg(
       color: "000",
       shape_rendering: "crispEdges",
-      module_size: 11,
+      module_size: 8,
       standalone: true,
       use_path: true
     )
