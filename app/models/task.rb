@@ -45,7 +45,8 @@ class Task < ApplicationRecord
   def notify_taskmembers
     # self is redundant
     task_members.each do |taskmember|
-      Telegram.notify_task(taskmember.user.telegram_chat_id)
+      notification = Telegram.new(taskmember.user.telegram_chat_id)
+      notification.notify_task(title)
     end
   end
 end
