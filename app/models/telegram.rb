@@ -21,11 +21,10 @@ class Telegram
     end
   end
 
-  # Redirected from task model
   def notify_task(title)
     make_http_request('sendMessage',
                       "You have a new task: "\
-                      "\n\n#{title}")
+                      "#{title}")
   end
 
   private
