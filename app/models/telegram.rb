@@ -21,16 +21,22 @@ class Telegram
     end
   end
 
-  private
+  # Redirected from task model
+  def self.notify_task(chat_id)
+    make_http_request(chat_id, 'sendMessage',
+                      'You have a new task.')
+  end
 
   # Telegram API request maker (changes @request_result)
-  def make_http_request(method, bot_reply)
-    request_body = "chat_id=#{@chat_id}&text=#{bot_reply}"
+  def self.make_http_request(chat_id, method, bot_reply)
+    request_body = "chat_id=#{chat_id}&text=#{bot_reply}"
     uri = URI("https://api.telegram.org/bot#{ENV['TELEBOT_KEY']}/#{method}?#{request_body}")
     response = Net::HTTP.get_response(uri)
 
     @request_result = response.is_a?(Net::HTTPSuccess) ? true : false
   end
+
+  private
 
   # split command for inputs with 2 parameters
   def parse_command(chat_command)
@@ -39,7 +45,7 @@ class Telegram
 
   # bot commands
   def start
-    make_http_request('sendMessage',
+    make_http_request(@chat_id, 'sendMessage',
                       'Welcome to Taskete on Telegram. '\
                       'Link your Telegram account by scanning the QR code on the Taskete web app.')
   end
@@ -51,17 +57,17 @@ class Telegram
     if this_user
       this_user.telegram_chat_id = @chat_id
       this_user.save
-      make_http_request('sendMessage',
+      make_http_request(@chat_id, 'sendMessage',
                         'Your Telegram and Taskete accounts have been connected. '\
                         'You will now receive Telegram notifications when you have a task.')
     else
-      make_http_request('sendMessage',
+      make_http_request(@chat_id, 'sendMessage',
                         'Verification failed.')
     end
   end
 
   def unrecognized
-    make_http_request('sendMessage',
+    make_http_request(@chat_id, 'sendMessage',
                       'Command is unrecognized, noob.')
   end
 end

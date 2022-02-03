@@ -28,7 +28,7 @@ class Task < ApplicationRecord
   end
 
   def set_current
-    self.update(completed: "current")
+    notify_taskmembers if self.update(completed: "current")
   end
 
   def set_pending
@@ -37,5 +37,15 @@ class Task < ApplicationRecord
 
   def set_completed
     self.update(completed: "completed")
+  end
+
+  private
+
+  # Task notifications
+  def notify_taskmembers
+    # self is redundant
+    task_members.each do |taskmember|
+      Telegram.notify_task(taskmember.user.telegram_chat_id)
+    end
   end
 end
