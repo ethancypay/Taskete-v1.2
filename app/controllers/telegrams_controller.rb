@@ -10,15 +10,32 @@ class TelegramsController < ApplicationController
 
     telegram_reply.bot_respond
 
-    respond if telegram_reply.request_result
-    # return respond if chat_command == '/start' && Telegram.start(chat_id)
-
-    # respond if Telegram.unrecognized(chat_id)
+    respond_to_telegram if telegram_reply.request_result
   end
+
+  def link
+    qrcode = RQRCode::QRCode.new("https://t.me/Taskete_bot?start=#{current_user.auth_token}")
+    svg = qrcode.as_svg(
+      color: "000",
+      shape_rendering: "crispEdges",
+      module_size: 8,
+      standalone: true,
+      use_path: true
+    )
+
+    respond_to do |format|
+      format.text { render html: svg.html_safe }
+      # format.text { render partial: 'shared/telegramQR', formats: [:html] }
+    end
+  end
+
+  # def unlink
+
+  # end
 
   private
 
-  def respond
+  def respond_to_telegram
     respond_to do |format|
       format.html { head :ok }
     end

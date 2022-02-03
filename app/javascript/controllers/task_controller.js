@@ -31,7 +31,7 @@ export default class extends Controller {
       method: 'POST',
       headers: { 'Accept': 'text/plain', 'X-CSRF-Token': csrfToken() },
       body: JSON.stringify({ workflowId: workflowId, taskTitle: taskTitle })
-    }).then( res => res.text() )
+    }).then( res => res.text())
       .then(this.insertIntoList.bind(this))
   }
 

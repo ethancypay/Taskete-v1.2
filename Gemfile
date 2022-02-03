@@ -72,3 +72,4 @@ gem 'letter_opener', group: :development
 gem 'postmark-rails'
 
 gem "noticed", "~> 1.4"
+gem "rqrcode", "~> 2.0"

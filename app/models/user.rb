@@ -8,9 +8,9 @@ class User < ApplicationRecord
 
   # after_create :send_welcome_email # causing error
 
-  # validates :email, presence: true
-  # validates :first_name, presence: true
-  # validates :last_name, presence: true
+  validates :email, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   has_one_attached :photo
 
