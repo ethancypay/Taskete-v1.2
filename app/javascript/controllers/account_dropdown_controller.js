@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["menu", "background", "telegramQrcode"]
+  static targets = ["menu", "background", "telegramQrcode", "linkbtn"]
 
   connect() {
   }
@@ -28,5 +28,21 @@ export default class extends Controller {
     this.backgroundTarget.classList.toggle('hidden')
     this.menuTarget.classList.toggle('hidden')
     this.telegramQrcodeTarget.innerHTML = '';
+  }
+
+  unlinkTelegram() {
+    fetch('/telegrams/unlink', {
+      headers: { 'Accept': 'text/plain' }
+    })
+      .then(res => res.text())
+      .then(this.unlinkSuccess.bind(this))
+
+    this.backgroundTarget.classList.toggle('hidden');
+  }
+
+  unlinkSuccess(reply) {
+    this.telegramQrcodeTarget.innerHTML = reply;
+    this.linkbtnTarget.dataset.action = "click->account-dropdown#linkTelegram"
+    this.linkbtnTarget.children[0].innerHTML = 'Link Telegram'
   }
 }

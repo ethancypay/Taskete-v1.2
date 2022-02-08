@@ -25,8 +25,8 @@
   <div class="t-dropdown w-44 hidden focus:ring" data-account-dropdown-target="menu">
     <%= link_to "Your Profile", edit_user_registration_path, class:"t-dropdown-btn" %>
 
-    <div class="t-dropdown-btn flex justify-between cursor-pointer" data-action="click->account-dropdown#linkTelegram">
-      <div>Link Telegram</div>
+    <div class="t-dropdown-btn flex justify-between cursor-pointer" data-account-dropdown-target="linkbtn" data-action="click->account-dropdown#<%= 'un' if current_user.telegram_chat_id %>linkTelegram">
+      <div><%= current_user.telegram_chat_id ? 'Unlink' : 'Link' %> Telegram</div>
       <img src="https://telegram.org/img/t_logo.svg?1" alt="" class="w-5">
     </div>
 
