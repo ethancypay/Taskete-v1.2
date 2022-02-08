@@ -30,9 +30,15 @@ class TelegramsController < ApplicationController
     end
   end
 
-  # def unlink
+  def unlink
+    current_user.telegram_chat_id = nil
 
-  # end
+    if current_user.save
+      respond_to do |format|
+        format.text { render html: 'Successfully unlinked Telegram account.' }
+      end
+    end
+  end
 
   private
 
